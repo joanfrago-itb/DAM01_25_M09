@@ -1,0 +1,231 @@
+/* Variables para facilitar el cambio de colores */
+:root {
+    --color-primary-blue: #0056b3; /* Azul primario */
+    --color-secondary-orange: #ff8c00; /* Naranja para resaltar */
+    --color-background-white: #ffffff; /* Fondo blanco */
+    --color-text-dark: #333333; /* Texto oscuro para legibilidad */
+    --color-text-light: #666666; /* Texto secundario */
+    --color-border-light: #eeeeee; /* Borde ligero */
+}
+
+/* 1. Estilos Globales y Tipografía */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-background-white);
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6; /* Mejora la legibilidad */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    /* Diseño de cuadrícula responsivo */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* 2. Cabecera (Header) */
+.header {
+    background-color: var(--color-primary-blue);
+    color: var(--color-background-white);
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.header-subtitle {
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.header-code-info {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.header-code-info strong {
+    color: var(--color-secondary-orange); /* Naranja para el nombre */
+}
+
+
+/* 3. Estilos de la Tarjeta (Card) */
+.project-card {
+    background-color: var(--color-background-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: 12px;
+    overflow: hidden; /* Asegura que la imagen no se salga */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-container {
+    position: relative;
+    height: 200px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--color-background-white);
+    z-index: 10;
+}
+
+.tag-m04 {
+    background-color: var(--color-primary-blue);
+}
+
+.tag-m09 {
+    background-color: var(--color-secondary-orange);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.4em;
+    color: var(--color-primary-blue);
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.card-subtitle {
+    font-size: 1em;
+    color: var(--color-secondary-orange);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-description {
+    font-size: 0.95em;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+}
+
+/* Estilos para la lista de enlaces */
+.card-links-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.card-links-list li {
+    margin-bottom: 8px;
+}
+
+.card-links-list a {
+    color: var(--color-text-dark);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.2s;
+}
+
+.card-links-list a:hover {
+    color: var(--color-secondary-orange);
+}
+
+/* 4. Pie de la Card (Enlaces a Apuntes/Git) */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-border-light);
+}
+
+.card-footer a {
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.footer-link-notes {
+    color: var(--color-primary-blue);
+    border: 1px solid var(--color-primary-blue);
+}
+
+.footer-link-notes:hover {
+    background-color: var(--color-primary-blue);
+    color: var(--color-background-white);
+}
+
+.footer-link-git {
+    color: var(--color-secondary-orange);
+    border: 1px solid var(--color-secondary-orange);
+}
+
+.footer-link-git:hover {
+    background-color: var(--color-secondary-orange);
+    color: var(--color-background-white);
+}
+
+
+/* 5. Pie de Página General del Sitio */
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid var(--color-border-light);
+    color: var(--color-text-light);
+    font-size: 0.9em;
+}
+
+.site-footer a {
+    color: var(--color-primary-blue);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* 6. Media Queries para Responsive Design (Opcional, pero recomendado) */
+@media (max-width: 600px) {
+    .header {
+        padding: 30px 15px;
+    }
+
+    .header-title {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 0 10px;
+        margin: 20px auto;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
