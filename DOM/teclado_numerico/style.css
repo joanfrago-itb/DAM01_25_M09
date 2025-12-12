@@ -1,0 +1,23 @@
+#teclado-numerico{
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+}
+
+.tecla{
+    width: 90px;
+    height: 80px;
+    background-color: #3af;
+    margin: 5px;
+    align-content: center;
+}
+
+.tecla p{
+    font-size: 30px;
+    margin: 0;
+}
+
+.numParell{
+    background-color: #a6b;
+}
