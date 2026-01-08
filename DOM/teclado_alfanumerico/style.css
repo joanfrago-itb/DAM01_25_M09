@@ -1,0 +1,23 @@
+#teclado-alfabetico{
+    width: 600px;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+}
+
+.tecla{
+    width: 90px;
+    height: 80px;
+    background-color: rgb(255, 173, 51);
+    margin: 5px;
+    align-content: center;
+}
+
+.tecla p{
+    font-size: 30px;
+    margin: 0;
+}
+
+.vocal{
+    background-color: #34db50;
+}
