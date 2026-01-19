@@ -46,11 +46,10 @@ function exCoches(){
     console.log(cochesv1);
 
     // Ordena el array por precio descendentemente.
-    let cochesv2 = coches;
-    cochesv2 = cochesv2.sort((a, b) => {
+    coches = coches.sort((a, b) => {
         return a[3]>b[3] ? -1:1;
     });
-    console.log(cochesv2);
+    console.log(coches);
 
     // array con un 20% de rebaja al precio
     let cochesv3 = coches.map(coche => {
