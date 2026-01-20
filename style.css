@@ -1,231 +1,235 @@
-/* Variables para facilitar el cambio de colores */
+/* Variables modernizadas */
 :root {
-    --color-primary-blue: #0056b3; /* Azul primario */
-    --color-secondary-orange: #ff8c00; /* Naranja para resaltar */
-    --color-background-white: #ffffff; /* Fondo blanco */
-    --color-text-dark: #333333; /* Texto oscuro para legibilidad */
-    --color-text-light: #666666; /* Texto secundario */
-    --color-border-light: #eeeeee; /* Borde ligero */
+	--color-primary: #0056b3;
+	--color-primary-dark: #003d80;
+	--color-accent: #ff8c00;
+	--color-bg: #f8f9fa;
+	--color-card-bg: #ffffff;
+	--color-text-main: #2c3e50;
+	--color-text-secondary: #6c757d;
+	--color-border: #e9ecef;
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+	--shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* 1. Estilos Globales y Tipografía */
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--color-background-white);
-    color: var(--color-text-dark);
-    margin: 0;
-    padding: 0;
-    line-height: 1.6; /* Mejora la legibilidad */
+	font-family: 'Montserrat', sans-serif;
+	background-color: var(--color-bg);
+	color: var(--color-text-main);
+	margin: 0;
+	padding: 0;
+	line-height: 1.6;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: grid;
-    /* Diseño de cuadrícula responsivo */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-/* 2. Cabecera (Header) */
+/* Header con Gradiente */
 .header {
-    background-color: var(--color-primary-blue);
-    color: var(--color-background-white);
-    padding: 40px 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+	color: white;
+	padding: 60px 20px;
+	text-align: center;
+	clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+	margin-bottom: 20px;
 }
 
 .header-title {
-    font-size: 2.5em;
-    margin-bottom: 5px;
-    font-weight: 700;
+	font-size: 3em;
+	margin: 0;
+	font-weight: 800;
+	letter-spacing: -1px;
 }
 
 .header-subtitle {
-    font-size: 1.2em;
-    font-weight: 400;
-    margin-top: 0;
-    margin-bottom: 15px;
+	font-size: 1.2em;
+	opacity: 0.9;
+	margin-top: 10px;
 }
 
-.header-code-info {
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.8);
+.highlight-name {
+	color: var(--color-accent);
 }
 
-.header-code-info strong {
-    color: var(--color-secondary-orange); /* Naranja para el nombre */
+/* Grid layout */
+.container {
+	max-width: 1200px;
+	margin: 0 auto 60px;
+	padding: 0 20px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: 30px;
 }
 
-
-/* 3. Estilos de la Tarjeta (Card) */
+/* Cards */
 .project-card {
-    background-color: var(--color-background-white);
-    border: 1px solid var(--color-border-light);
-    border-radius: 12px;
-    overflow: hidden; /* Asegura que la imagen no se salga */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
+	background: var(--color-card-bg);
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+	transition: all 0.3s ease;
+	border: 1px solid var(--color-border);
+	display: flex;
+	flex-direction: column;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+	transform: translateY(-5px);
+	box-shadow: var(--shadow-lg);
 }
 
+/* Imagen y Tag */
 .card-image-container {
-    position: relative;
-    height: 200px;
+	position: relative;
+	height: 180px;
+	overflow: hidden;
 }
 
 .card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.project-card:hover .card-image {
+	transform: scale(1.05);
 }
 
 .card-tag {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8em;
-    font-weight: 700;
-    color: var(--color-background-white);
-    z-index: 10;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 0.75em;
+	font-weight: 700;
+	color: white;
+	text-transform: uppercase;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .tag-m04 {
-    background-color: var(--color-primary-blue);
+	background-color: var(--color-primary);
 }
 
 .tag-m09 {
-    background-color: var(--color-secondary-orange);
+	background-color: var(--color-accent);
 }
 
+.tag-default {
+	background-color: #6c757d;
+}
+
+/* Contenido Card */
 .card-content {
-    padding: 20px;
+	padding: 25px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .card-title {
-    font-size: 1.4em;
-    color: var(--color-primary-blue);
-    margin-top: 0;
-    margin-bottom: 5px;
+	font-size: 1.5em;
+	color: var(--color-primary);
+	margin: 0 0 5px;
 }
 
 .card-subtitle {
-    font-size: 1em;
-    color: var(--color-secondary-orange);
-    font-weight: 600;
-    margin-bottom: 15px;
+	font-size: 0.9em;
+	color: var(--color-accent);
+	font-weight: 600;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 }
 
 .card-description {
-    font-size: 0.95em;
-    color: var(--color-text-light);
-    margin-bottom: 20px;
+	font-size: 0.95em;
+	color: var(--color-text-secondary);
+	margin-bottom: 25px;
 }
 
-/* Estilos para la lista de enlaces */
+/* Lista de ejercicios */
+.card-exercises h4 {
+	font-size: 0.9em;
+	color: var(--color-text-main);
+	margin-bottom: 10px;
+	border-bottom: 2px solid var(--color-border);
+	padding-bottom: 5px;
+}
+
 .card-links-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px;
 }
 
 .card-links-list li {
-    margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 .card-links-list a {
-    color: var(--color-text-dark);
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: color 0.2s;
+	display: block;
+	padding: 8px 12px;
+	background-color: #f1f3f5;
+	border-radius: 8px;
+	color: var(--color-text-main);
+	text-decoration: none;
+	font-size: 0.9em;
+	transition: background 0.2s, color 0.2s;
 }
 
 .card-links-list a:hover {
-    color: var(--color-secondary-orange);
+	background-color: var(--color-primary);
+	color: white;
 }
 
-/* 4. Pie de la Card (Enlaces a Apuntes/Git) */
+.card-links-list i {
+	margin-right: 8px;
+	color: var(--color-accent);
+}
+
+.card-links-list a:hover i {
+	color: white;
+}
+
+/* Footer de Card */
 .card-footer {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 15px;
-    border-top: 1px solid var(--color-border-light);
+	margin-top: auto;
+	padding-top: 15px;
+	border-top: 1px solid var(--color-border);
+	font-size: 0.8em;
+	color: var(--color-text-secondary);
+	text-align: right;
 }
 
-.card-footer a {
-    text-decoration: none;
-    font-size: 0.9em;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+.folder-path {
+	font-family: monospace;
+	background: #eee;
+	padding: 2px 6px;
+	border-radius: 4px;
 }
 
-.footer-link-notes {
-    color: var(--color-primary-blue);
-    border: 1px solid var(--color-primary-blue);
-}
-
-.footer-link-notes:hover {
-    background-color: var(--color-primary-blue);
-    color: var(--color-background-white);
-}
-
-.footer-link-git {
-    color: var(--color-secondary-orange);
-    border: 1px solid var(--color-secondary-orange);
-}
-
-.footer-link-git:hover {
-    background-color: var(--color-secondary-orange);
-    color: var(--color-background-white);
-}
-
-
-/* 5. Pie de Página General del Sitio */
+/* Footer Sitio */
 .site-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    border-top: 1px solid var(--color-border-light);
-    color: var(--color-text-light);
-    font-size: 0.9em;
+	text-align: center;
+	padding: 40px 20px;
+	color: var(--color-text-secondary);
+	border-top: 1px solid var(--color-border);
+	background: white;
 }
 
 .site-footer a {
-    color: var(--color-primary-blue);
-    text-decoration: none;
+	color: var(--color-primary);
+	text-decoration: none;
+	font-weight: 600;
 }
 
-.site-footer a:hover {
-    text-decoration: underline;
-}
-
-/* 6. Media Queries para Responsive Design (Opcional, pero recomendado) */
-@media (max-width: 600px) {
-    .header {
-        padding: 30px 15px;
-    }
-
-    .header-title {
-        font-size: 2em;
-    }
-
-    .container {
-        padding: 0 10px;
-        margin: 20px auto;
-    }
-
-    .card-footer {
-        flex-direction: column;
-        gap: 10px;
-    }
+/* Empty State */
+.empty-state {
+	grid-column: 1 / -1;
+	text-align: center;
+	padding: 50px;
+	background: white;
+	border-radius: 12px;
+	border: 2px dashed var(--color-border);
 }
