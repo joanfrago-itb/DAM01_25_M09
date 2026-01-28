@@ -1,7 +1,7 @@
 document.addEventListener("mousemove", (event) => {
-	console.log("Mouse position: " + event.screenX + "," + event.screenY);
+	console.log("Mouse position: " + event.clientX + "," + event.screenY);
 
 	let quadrat = document.getElementById("quadrat");
-	quadrat.style.right = event.screenX;
+	quadrat.style.left = event.clientX + 'px';
 });
 
