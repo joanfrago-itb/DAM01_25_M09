@@ -8,3 +8,12 @@
 	left: 50%;
 	transform: translateX(-50%);
 }
+
+.bala {
+	width: 10px;
+	height: 20px;
+	background-color: #000;
+
+	position: absolute;
+	transform: translateX(-50%);
+}
