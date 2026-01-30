@@ -141,24 +141,28 @@ const alumnosJSON = `[
     }
   ]`;
 
-let alumnos = JSON.parse(alumnosJSON);
+function visualitzarAlumnes() {
+	let alumnos = JSON.parse(alumnosJSON);
 
-let alumnosTable = document.getElementById("alumnos-table");
-let alumnosTableHead = document.getElementById("alumnos-table-head");
+	let alumnosTable = document.getElementById("alumnos-table");
+	let alumnosTableHead = document.getElementById("alumnos-table-head");
 
-// Header
-for (let key in alumnos[0]) {
-	alumnosTableHead.innerHTML += `<th>${key}</th>`;
-}
-
-// Dades
-for (let alumno of alumnos) {
-
-	let row = "<tr>";
-	for (let key in alumno) {
-		row += `<td>${alumno[key]}</td>`
+	// Header
+	for (let key in alumnos[0]) {
+		alumnosTableHead.innerHTML += `<th>${key}</th>`;
 	}
 
-	row += "</tr>";
-	alumnosTable.innerHTML += row;
+	// Dades
+	for (let alumno of alumnos) {
+
+		let row = "<tr>";
+		for (let key in alumno) {
+			row += `<td>${alumno[key]}</td>`
+		}
+
+		row += "</tr>";
+		alumnosTable.innerHTML += row;
+	}
 }
+
+visualitzarAlumnes();
