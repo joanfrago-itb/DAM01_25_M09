@@ -147,6 +147,13 @@ function visualitzarAlumnes() {
 	let alumnosTable = document.getElementById("alumnos-table");
 	let alumnosTableHead = document.getElementById("alumnos-table-head");
 
+	// Afegir mitja
+	alumnos.forEach(alumno => {
+		alumno.calcularMitja = function() {
+			return (alumno.notam2 + alumno.notam3 + alumno.notam4 + alumno.notam5 + alumno.notam6 + alumno.notam9) / 6;
+		};
+	});
+
 	// Header
 	for (let key in alumnos[0]) {
 		alumnosTableHead.innerHTML += `<th>${key}</th>`;
