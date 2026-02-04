@@ -1,0 +1,171 @@
+:root {
+	--bg-color: #1e4d2b;
+	--card-bg: #ffffff;
+	--primary-green: #558b2f;
+	--tag-orange: #ff6d24;
+	--text-dark: #222;
+	--text-grey: #666;
+	--border-color: #ddd;
+}
+
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: var(--bg-color);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+header {
+	color: white;
+	padding: 20px;
+	text-align: center;
+}
+
+h1 {
+	margin: 0;
+	font-size: 2rem;
+}
+
+#product-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px;
+	max-width: 1450px;
+}
+
+.product-card {
+	background-color: var(--card-bg);
+	border-radius: 12px;
+	width: 300px;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.img-container {
+	background-color: #f5f5f5;
+	border-radius: 8px;
+	padding: 10px;
+	text-align: center;
+	height: 220px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.img-container img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.tag {
+	background-color: var(--tag-orange);
+	color: white;
+	font-weight: bold;
+	font-size: 0.75rem;
+	padding: 4px 10px;
+	border-radius: 4px;
+	text-transform: uppercase;
+	align-self: flex-start;
+	display: inline-block;
+}
+
+h2 {
+	margin: 5px 0 0 0;
+	font-size: 1.4rem;
+	text-transform: uppercase;
+	color: var(--text-dark);
+}
+
+.description {
+	font-size: 0.9rem;
+	color: var(--text-grey);
+	margin: 0;
+	line-height: 1.4;
+	min-height: 40px;
+}
+
+.price {
+	font-size: 1.8rem;
+	font-weight: 800;
+	color: var(--text-dark);
+	margin: 5px 0;
+}
+
+.options-label {
+	font-weight: bold;
+	font-size: 0.9rem;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.sizes-container {
+	display: flex;
+	gap: 5px;
+}
+
+.size-box {
+	border: 1px solid var(--border-color);
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: 0.2s;
+}
+
+.size-box.active {
+	background-color: var(--primary-green);
+	color: white;
+	border-color: var(--primary-green);
+}
+
+.colors-container {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.color-circle {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	position: relative;
+}
+
+.color-circle.active::after {
+	content: '✓';
+	color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 0.8rem;
+	text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.add-btn {
+	background-color: var(--primary-green);
+	color: white;
+	border: none;
+	padding: 12px;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: 1rem;
+	cursor: pointer;
+	margin-top: auto;
+	text-transform: uppercase;
+}
+
+.add-btn:hover {
+	opacity: 0.9;
+}
