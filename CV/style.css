@@ -1,0 +1,224 @@
+/* --- CSS VARIABLES & RESET --- */
+:root {
+	--bg-body: #121212;
+	/* Very dark background for page */
+	--bg-card: #1e1e24;
+	/* Slightly lighter for the paper */
+	--bg-sidebar: #25252d;
+	/* Distinct sidebar color */
+	--text-main: #e0e0e0;
+	/* Off-white for readability */
+	--text-muted: #a0a0a0;
+	/* Grey for less important info */
+	--accent: #64ffda;
+	/* Teal accent color */
+	--font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: var(--bg-body);
+	color: var(--text-main);
+	font-family: var(--font-main);
+	line-height: 1.6;
+	display: flex;
+	justify-content: center;
+	padding: 40px 20px;
+}
+
+/* --- LAYOUT CONTAINER --- */
+.resume-container {
+	background-color: var(--bg-card);
+	width: 100%;
+	max-width: 900px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	/* Sidebar takes 1/3, Main takes 2/3 */
+	overflow: hidden;
+	/* Ensures rounded corners if applied */
+}
+
+/* --- SIDEBAR (LEFT COLUMN) --- */
+aside {
+	background-color: var(--bg-sidebar);
+	padding: 40px 30px;
+	border-right: 1px solid #333;
+}
+
+.profile-img {
+	width: 120px;
+	height: 120px;
+	background-color: #333;
+	border-radius: 50%;
+	margin-bottom: 20px;
+	border: 2px solid var(--accent);
+	/* Placeholder for image centering */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+	font-size: 0.8rem;
+}
+
+.contact-info {
+	margin-bottom: 40px;
+}
+
+.contact-item {
+	display: block;
+	margin-bottom: 15px;
+	color: var(--text-muted);
+	font-size: 0.9rem;
+	text-decoration: none;
+}
+
+.contact-item span {
+	color: var(--text-main);
+	display: block;
+	font-weight: bold;
+}
+
+.skill-list {
+	list-style: none;
+}
+
+.skill-list li {
+	background: rgba(255, 255, 255, 0.05);
+	padding: 5px 10px;
+	margin-bottom: 8px;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	border-left: 3px solid var(--accent);
+}
+
+/* --- MAIN CONTENT (RIGHT COLUMN) --- */
+main {
+	padding: 40px;
+}
+
+header {
+	margin-bottom: 40px;
+	border-bottom: 1px solid #333;
+	padding-bottom: 20px;
+}
+
+h1 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: var(--text-main);
+	margin-bottom: 5px;
+	letter-spacing: -1px;
+}
+
+.job-title {
+	color: var(--accent);
+	font-size: 1.2rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+h2 {
+	font-size: 1.1rem;
+	color: var(--text-main);
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	border-bottom: 2px solid var(--accent);
+	display: inline-block;
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+	margin-top: 10px;
+}
+
+.section {
+	margin-bottom: 35px;
+}
+
+p {
+	color: var(--text-muted);
+	margin-bottom: 15px;
+}
+
+/* --- EXPERIENCE ITEMS --- */
+.job-entry {
+	margin-bottom: 25px;
+}
+
+.job-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 5px;
+}
+
+.job-role {
+	font-weight: bold;
+	font-size: 1.1rem;
+	color: var(--text-main);
+}
+
+.job-company {
+	color: var(--accent);
+}
+
+.job-date {
+	font-size: 0.85rem;
+	color: var(--text-muted);
+	font-style: italic;
+}
+
+.job-details li {
+	color: var(--text-muted);
+	margin-bottom: 5px;
+	margin-left: 20px;
+}
+
+/* --- RESPONSIVE DESIGN (MOBILE) --- */
+@media (max-width: 768px) {
+	.resume-container {
+		grid-template-columns: 1fr;
+	}
+
+	aside {
+		border-right: none;
+		border-bottom: 1px solid #333;
+	}
+
+	.job-header {
+		flex-direction: column;
+	}
+}
+
+/* --- PRINT SETTINGS --- */
+/* Note: Printing a dark background uses a lot of ink. 
+   These rules adjust margins for PDF generation. */
+@media print {
+	body {
+		background: none;
+		padding: 0;
+	}
+
+	.resume-container {
+		box-shadow: none;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	/* If you prefer to print in white mode, uncomment below: */
+	/*
+	:root {
+		--bg-body: #ffffff;
+		--bg-card: #ffffff;
+		--bg-sidebar: #f4f4f4;
+		--text-main: #000000;
+		--text-muted: #555555;
+		--accent: #008080;
+	}
+	*/
+}
