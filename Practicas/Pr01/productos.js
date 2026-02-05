@@ -72,10 +72,6 @@ function muestraProductos(products) {
 		const imagenInicial = product.imagenes[primerColor];
 		const tagTexto = product.tags.length > 0 ? product.tags[0] : '';
 
-		let tallasHTML = crearSeccionTallas(product);
-
-		let coloresHTML = crearSeccionColores(product);
-
 		article.innerHTML = `
 			<div class="img-container">
 				<img src="${imagenInicial}" alt="${product.nombre}">
@@ -89,51 +85,69 @@ function muestraProductos(products) {
 			
 			<div>
 				<span class="options-label">Talla:</span>
-				<div class="sizes-container">
-					${tallasHTML}
-				</div>
+				<div class="sizes-container"></div>
 			</div>
 
 			<div>
 				<span class="options-label">Color:</span>
-				<div class="colors-container">
-					${coloresHTML}
-				</div>
+				<div class="colors-container"></div>
 			</div>
 
 			<button class="add-btn">AÑADIR AL CARRITO</button>
 		`;
 
-		let productList = document.getElementById('product-list');
+		let tallas = article.querySelector(".sizes-container");
+		product.tallas.forEach((talla) => {
+			let tallaHTML = nuevaTalla(talla);
+			tallas.appendChild(tallaHTML);
+		});
+
+		let colores = article.querySelector(".colors-container");
+		product.colores.forEach((color) => {
+			let colorHTML = nuevoColor(color);
+			colores.appendChild(colorHTML);
+		});
+
+		let productList = document.getElementById("product-list");
 		productList.appendChild(article);
 	});
 }
 
-function crearSeccionTallas(product) {
-	let tallasHTML = '';
+function nuevaTalla(talla) {
+	let tallaHTML = document.createElement("div");
+	tallaHTML.innerHTML = talla;
+	tallaHTML.classList.add("size-box");
 
-	product.tallas.forEach((talla, index) => {
-		const activeClass = index === 0 ? 'active' : '';
-		tallasHTML += `<div class="size-box ${activeClass}">${talla}</div>`;
+	tallaHTML.addEventListener("click", (event) => {
+		let parent = event.currentTarget.parentElement;
+		parent.querySelectorAll(".size-box").forEach((element) => {
+			element.classList.remove("active");
+		});
+
+		event.currentTarget.classList.add("active");
 	});
 
-	return tallasHTML;
+	return tallaHTML;
 }
 
-function crearSeccionColores(product) {
-	let coloresHTML = '';
+function nuevoColor(color) {
+	let colorHTML = document.createElement("div");
 
-	product.colores.forEach((colorName, index) => {
-		let activeClass = index === 0 ? 'active' : '';
-		let cssColor = colorMap[colorName];
-		coloresHTML += `
-			<div class="color-circle ${activeClass}" 
-				 style="background-color: ${cssColor};" 
-				 title="${colorName}">
-			</div>`;
+	let cssColor = colorMap[color];
+	colorHTML.classList.add("color-circle");
+	colorHTML.style.backgroundColor = cssColor;
+	colorHTML.title = color;
+
+	colorHTML.addEventListener("click", (event) => {
+		let parent = event.currentTarget.parentElement;
+		parent.querySelectorAll(".color-circle").forEach((element) => {
+			element.classList.remove("active");
+		});
+
+		event.currentTarget.classList.add("active");
 	});
 
-	return coloresHTML;
+	return colorHTML;
 }
 
 
