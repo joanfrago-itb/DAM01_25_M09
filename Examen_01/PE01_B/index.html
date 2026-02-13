@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PE01_Dashboard de Flota Intergaláctica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 SpaceLogistics Corp 🚀</h1>
+            <h2>Dashboard de Gestión de Flota</h2>
+        </header>
+
+        <section class="filtros">
+            <h3>Buscar Naves por Capacidad</h3>
+            <div class="buscador">
+                <input type="number" id="inputCapacidad" placeholder="Capacidad mínima (toneladas)" min="0">
+                <button id="btnBuscar">🔍 Buscar</button>
+                <button id="btnReset">↻ Mostrar Todas</button>
+            </div>
+            
+            <h3 style="margin-top: 20px;">Control de Simulación</h3>
+            <div class="buscador">
+                <button id="btnEncender">▶️ Encender Simulación</button>
+                <button id="btnApagar">⏸️ Apagar Simulación</button>
+            </div>
+        </section>
+
+        <section class="tabla-container">
+            <h3>Estado de la Flota</h3>
+            <table id="tablaFlota">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Modelo</th>
+                        <th>Capacidad</th>
+                        <th>Estado</th>
+                        <th>Capitán</th>
+                    </tr>
+                </thead>
+                <tbody id="datosTabla">
+                    <!-- Las filas se insertarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>Actualización automática cada 5 segundos cuando la simulación está activa</p>
+        </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="alumno.js"></script>
+    <!-- <script src="correcion.js"></script> -->
+</body>
+</html>
