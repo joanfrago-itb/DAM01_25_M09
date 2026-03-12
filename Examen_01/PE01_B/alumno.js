@@ -95,7 +95,7 @@ function renderizarTabla(flota) {
     let tabla = document.getElementById("datosTabla");
     tabla.innerHTML = "";
 
-    flotaEspacial.forEach((nave) => {
+    flota.forEach((nave) => {
         let classEstado = nave.estado == "Mantenimiento" ? "nave-alerta" : "";
 
         let fila = document.createElement("tr");
@@ -111,9 +111,19 @@ function renderizarTabla(flota) {
     });
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 // 4. SIMULACIÓN EN TIEMPO REAL (2 puntos)
 function encenderSimulacion() {
-    let id = "NAV-0008";
+    let randomId = getRandomInt(flotaEspacial.size);
+    let ids = flotaEspacial.keys();
+
+    let id = "";
+    for(let i=0; i<randomId; i++){
+	id = ids.next().value;
+    }
 
     let nave = flotaEspacial.get(id);
     if(nave.estado == "En ruta") nave.estado = "Disponible";
@@ -128,10 +138,10 @@ function apagarSimulacion(intId) {
 // 5. BUSCADOR POR CAPACIDAD (1 punto)
 function buscarPorCapacidad() {
     let capacidad = document.getElementById("inputCapacidad");
-    capacidad = parseInt(capacidad);
+    capacidad = parseInt(capacidad.value);
 
     let navesFiltradas = new Map;
-    flotaEspacial.forEach((key, nave) => {
+    flotaEspacial.forEach((nave, key) => {
         if(nave.capacidadCarga >= capacidad){
             navesFiltradas.set(key, nave);
         }
@@ -171,9 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let btnBuscar = document.getElementById("btnBuscar");
-    btnBuscar.addEventListener("click", buscarPorCapacidad);
+    btnBuscar.onclick = buscarPorCapacidad;
 
 
     let btnReset = document.getElementById("btnReset");
-    btnReset.addEventListener("click", mostrarTodas);
+    btnReset.onclick = mostrarTodas;
 });
