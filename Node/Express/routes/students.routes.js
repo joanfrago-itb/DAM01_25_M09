@@ -3,10 +3,10 @@ import * as StudentsController from "../controllers/students.controller.js";
 
 const router = Router();
 
-router.get("/students", StudentsController.getAll);
-router.get("/students/:id", StudentsController.getById);
-router.delete("/students/:id", StudentsController.deleteById);
-router.post("/students", StudentsController.add);
-router.put("/students/:id", StudentsController.modifyById);
+router.get("/", StudentsController.getAll);
+router.get("/:id", StudentsController.getById);
+router.post("/", StudentsController.add);
+router.put("/:id", StudentsController.modifyById);
+router.delete("/:id", StudentsController.deleteById);
 
 export default router;
