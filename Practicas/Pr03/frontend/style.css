@@ -22,6 +22,11 @@ header {
 	color: white;
 	padding: 20px;
 	text-align: center;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 60%;
 }
 
 h1 {
@@ -168,4 +173,50 @@ h2 {
 
 .add-btn:hover {
 	opacity: 0.9;
+}
+
+
+/* Estilos para el contenedor del enlace */
+.cart-link {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+/* Estilos para el icono SVG */
+.cart-icon {
+  width: 24px;   /* Ajusta el tamaño según sea necesario */
+  height: auto;
+  fill: #fff; /* Tu azul marino principal */
+  transition: fill 0.3s ease;
+}
+
+.cart-link:hover .cart-icon {
+  fill: #ffdb58; /* Cambia a mostaza al pasar el ratón */
+}
+
+/* Estilos para el círculo de "notificación" */
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ffdb58; /* Tu mostaza principal */
+  color: #ffffff; /* Texto blanco */
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Ocultar si el recuento es cero (opcional, manejar con JS) */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Clase para mostrar la insignia cuando hay artículos */
+.cart-badge.show {
+  opacity: 1;
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado - Store</title>
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="tiquet.css">
+
+	<script src="./tiquet.js"></script>
+</head>
+<body onload="renderOrder()">
+    <main class="receipt-wrapper">
+        <section class="success-banner">
+            <div class="check-icon">✓</div>
+            <h1>¡Gracias por tu compra!</h1>
+            <p>Tu pedido ha sido recibido correctamente.</p>
+        </section>
+
+        <div class="receipt-grid">
+			<section class="order-info-column">
+				<div class="receipt-card">
+					<h3>Detalles del Pedido</h3>
+					<div class="meta-row">
+						<span class="options-label">ID del Pedido:</span>
+						<span id="order-id" class="meta-value"></span>
+					</div>
+					<div class="meta-row">
+						<span class="options-label">Fecha:</span>
+						<span id="order-date" class="meta-value"></span>
+					</div>
+					<div class="meta-row">
+						<span class="options-label">Estado:</span>
+						<span class="status-badge">Recibida</span>
+					</div>
+				</div>
+
+				<div id="receipt-items-list">
+					</div>
+			</section>
+
+            <aside class="total-card">
+                <h3>Resumen Final</h3>
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="final-subtotal">39.90€</span>
+                </div>
+                <div class="summary-line">
+                    <span>Envío</span>
+                    <span class="free-text">GRATIS</span>
+                </div>
+                <div class="summary-total">
+                    <span>TOTAL PAGADO</span>
+                    <span id="final-total">39.90€</span>
+                </div>
+                <button onclick="window.print()" class="print-btn">Descargar Recibo (PDF)</button>
+                <a href="index.html" class="back-link">Volver a la tienda</a>
+            </aside>
+        </div>
+    </main>
+</body>
+</html>

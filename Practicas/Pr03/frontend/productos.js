@@ -1,60 +1,3 @@
-const productosJSON = `[
-  {
-    "id": "TSH01",
-    "nombre": "MACACARENA",
-    "descripcion": "Quan balles sense vergonya i el ritme et domina.",
-    "precioBase": 19.95,
-    "tallas": ["S", "M", "L", "XL"],
-    "colores": ["blanco", "negro", "mostaza"],
-    "imagenes": {
-      "blanco": "img/MACACARENA.png",
-      "negro": "img/MACACARENA_BLACK.png",
-      "mostaza": "img/MACACARENA.png"
-    },
-    "tags": ["nuevo"]
-  },
-  {
-    "id": "TSH02",
-    "nombre": "NINETIES MODE",
-    "descripcion": "Un homenatge pixelat als anys 90.",
-    "precioBase": 21.50,
-    "tallas": ["S", "M", "L", "XL", "XXL"],
-    "colores": ["gris", "negro"],
-    "imagenes": {
-      "gris": "img/NINETIES.png",
-      "negro": "img/NINETIES_BLACK.png"
-    },
-    "tags": ["retro"]
-  },
-  {
-    "id": "TSH03",
-    "nombre": "RESERVOIR INVADERS",
-    "descripcion": "Quan Tarantino coneix els videojocs clàssics.",
-    "precioBase": 22.90,
-    "tallas": ["M", "L", "XL"],
-    "colores": ["azul", "negro"],
-    "imagenes": {
-      "azul": "img/RESERVOIR.png",
-      "negro": "img/RESERVOIR_BLACK.png"
-    },
-    "tags": ["edicion-especial"]
-  },
-  {
-    "id": "TSH04",
-    "nombre": "VITRUVIAN CODE",
-    "descripcion": "Art, codi i proporció perfecta.",
-    "precioBase": 24.00,
-    "tallas": ["S", "M", "L", "XL"],
-    "colores": ["blanco", "negro"],
-    "imagenes": {
-      "blanco": "img/VITRUVIAN.png",
-      "negro": "img/VITRUVIAN_BLACK.png"
-    },
-    "tags": ["premium"]
-  }
-]
-`;
-
 const colorMap = {
 	"blanco": "#ffffff",
 	"negro": "#000000",
@@ -63,7 +6,7 @@ const colorMap = {
 	"azul_marino": "#1a237e"
 };
 
-function muestraProductos(products) {
+function mostrarProductos(products) {
 	products.forEach(product => {
 		const article = document.createElement('article');
 		article.classList.add('product-card');
@@ -85,32 +28,37 @@ function muestraProductos(products) {
 			
 			<div>
 				<span class="options-label">Talla:</span>
-				<div class="sizes-container"></div>
+				<div id=\"${product.id}_sizes\" class="sizes-container"></div>
+				<p id=\"${product.id}_sizes_error\"></p>
 			</div>
 
 			<div>
 				<span class="options-label">Color:</span>
-				<div class="colors-container"></div>
+				<div id=\"${product.id}_colors\" class="colors-container"></div>
+				<p id=\"${product.id}_colors_error\"></p>
 			</div>
 
-			<button class="add-btn">AÑADIR AL CARRITO</button>
+			<button id=\"${product.id}_add_to_cart\" class="add-btn">AÑADIR AL CARRITO</button>
 		`;
 
 		let tallas = article.querySelector(".sizes-container");
 		product.tallas.forEach((talla) => {
-			let tallaHTML = nuevaTalla(talla);
-			tallas.appendChild(tallaHTML);
-		});
-
-		let colores = article.querySelector(".colors-container");
-		product.colores.forEach((color) => {
-			let colorHTML = nuevoColor(color);
-			colores.appendChild(colorHTML);
-		});
-
-		let productList = document.getElementById("product-list");
-		productList.appendChild(article);
+		let tallaHTML = nuevaTalla(talla);
+		tallas.appendChild(tallaHTML);
 	});
+
+	let colores = article.querySelector(".colors-container");
+	product.colores.forEach((color) => {
+		let colorHTML = nuevoColor(color);
+		colores.appendChild(colorHTML);
+	});
+
+	let productList = document.getElementById("product-list");
+	productList.appendChild(article);
+
+	let add2CartButton = document.getElementById(product.id+"_add_to_cart");
+	add2CartButton.onclick = () => {addToCart(product)};
+});
 }
 
 function nuevaTalla(talla) {
@@ -157,13 +105,104 @@ async function obtenerProductos(){
 			throw new Error(`Error HTTP ${res.status}`);
 		}
 		const productos = await res.json();
-		muestraProductos(productos);
+		mostrarProductos(productos);
 	} catch (error) {
 		console.error("Error:", error);
 	}
 }
 
+function addToCart(product){
+	if(productOnCart(product)){
+		// Just sum one to cantidad
+		cartAddCantidad(product.id);
+		return;
+	}
+
+	const size = document.querySelector("#"+product.id+"_sizes .active");
+	if(size == null){
+		const err = "Please pick a size";
+		const size_error = document.getElementById(product.id+"_sizes_error");
+		size_error.textContent = err;
+		return;
+	}
+	else{
+		const size_error = document.getElementById(product.id+"_sizes_error");
+		size_error.textContent = "";
+	}
+
+	const color = document.querySelector("#"+product.id+"_colors .active");
+	if(color == null){
+		const err = "Please pick a color";
+		const color_error = document.getElementById(product.id+"_colors_error");
+		color_error.textContent = err;
+		return;
+	}
+	else{
+		const color_error = document.getElementById(product.id+"_colors_error");
+		color_error.textContent = "";
+	}
+
+	let cart = JSON.parse(localStorage.getItem("cart"));
+	cart.push({
+		camisetaId: product.id,
+		nombre: product.nombre,
+		talla: size.textContent,  // get the one selected on DOM
+		color: color.title,       // get the one selected on DOM
+ 		cantidad: 1,              // if product didn't exist on cart, it's the first one
+		precio: product.precioBase
+	});
+
+	localStorage.removeItem("cart");
+	localStorage.setItem("cart", JSON.stringify(cart));
+	updateCartCount();
+}
+
+function productOnCart(aProduct){
+	let stg = JSON.parse(localStorage.getItem("cart"));
+
+	if(stg == []) return false;
+
+	return stg.some((iProduct) => iProduct.camisetaId == aProduct.id);
+}
+
+function cartAddCantidad(productId){
+	let stg = JSON.parse(localStorage.getItem("cart"));
+	stg.forEach((product) => {
+		if(product.camisetaId == productId){
+			product.cantidad += 1;
+		}
+	});
+	
+	localStorage.removeItem("cart");
+	localStorage.setItem("cart", JSON.stringify(stg));
+	updateCartCount();
+}
+
+function loadCart(){
+	let cart = JSON.parse(localStorage.getItem("cart"));
+	if(cart == null){
+		// initialize cart to an empty array
+		localStorage.setItem("cart", "[]");
+	}
+}
+
+function updateCartCount(){
+	const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, product) => sum + product.cantidad, 0);
+    const cartCount = document.getElementById("cart-count");
+    
+    if (totalItems > 0) {
+        cartCount.textContent = totalItems;
+        cartCount.classList.add("show");
+    } else {
+        cartCount.classList.remove("show");
+    }
+}
+
+// TODO: 2.1 - Filtros
+
 function init() {
-	// let productos = JSON.parse(productosJSON);
+	loadCart();
+	updateCartCount();
 	obtenerProductos();
 }

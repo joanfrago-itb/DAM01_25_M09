@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="cart.css">
+
+	<script src="./cart.js" defer></script>
+</head>
+<body onload="initCart()">
+    <main class="cart-wrapper">
+        <h1 class="cart-title">TU CARRITO</h1>
+
+        <div class="cart-grid">
+            <section id="cart-items-container" class="items-column"></section>
+
+            <aside class="summary-card">
+                <h3>RESUMEN DEL PEDIDO</h3>
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="subtotal-val">0.00€</span>
+                </div>
+                <div class="summary-line">
+                    <span>Envío</span>
+                    <span class="free-text">GRATIS</span>
+                </div>
+                <div class="summary-total">
+                    <span>TOTAL</span>
+                    <span id="total-val">0.00€</span>
+                </div>
+                <button class="checkout-btn" onclick="finalizarCompra()">FINALIZAR COMPRA</button>
+                <a href="index.html" class="back-link">← Volver a la tienda</a>
+            </aside>
+        </div>
+    </main>
+</body>
+</html>

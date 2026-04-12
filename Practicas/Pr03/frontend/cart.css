@@ -1,0 +1,209 @@
+:root {
+	--primary-navy: #1a237e;
+	--accent-mustard: #ffdb58;
+	--text-dark: #222;
+	--text-light: #666;
+	--bg-gray: #f8f9fa;
+	--white: #ffffff;
+	--border: #e0e0e0;
+}
+
+body {
+	padding: 40px 20px;
+}
+
+.cart-wrapper {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.cart-title {
+	font-size: 2rem;
+	font-weight: 800;
+	margin-bottom: 40px;
+	color: #fff;
+}
+
+.cart-grid {
+	display: grid;
+	grid-template-columns: 1fr 350px;
+	gap: 40px;
+	align-items: start;
+}
+
+/* Item Card - Matches your .product-card style */
+.cart-item-card {
+	background: var(--white);
+	padding: 20px;
+	margin-bottom: 15px;
+	border-radius: 8px; /* Added slight rounding like modern cards */
+	display: flex;
+	gap: 25px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Soft shadow */
+}
+
+.item-img-box {
+	width: 110px;
+	height: 140px;
+	background: var(--bg-gray);
+	flex-shrink: 0;
+}
+
+.item-img-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.item-info {
+	flex-grow: 1;
+}
+
+.item-info h2 {
+	font-size: 1.2rem;
+	margin: 0 0 12px 0;
+	color: var(--primary-navy);
+}
+
+/* Your .options-label style */
+.options-label {
+	font-weight: bold;
+	font-size: 0.85rem;
+	color: var(--text-light);
+	text-transform: uppercase;
+}
+
+.item-specs {
+	margin-bottom: 20px;
+	display: flex;
+	gap: 20px;
+}
+
+.spec-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Your .color-circle style */
+.small-circle {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 1px solid var(--border);
+	display: block;
+}
+
+.quantity-controls {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.qty-mod {
+	background: var(--white);
+	border: 1px solid var(--border);
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: all 0.2s;
+}
+
+.qty-mod:hover {
+	border-color: var(--primary-navy);
+}
+
+.remove-link {
+	background: none;
+	border: none;
+	color: #d32f2f; /* Red for deletion */
+	text-decoration: none;
+	font-size: 0.8rem;
+	cursor: pointer;
+	margin-left: 15px;
+}
+
+.remove-link:hover {
+	text-decoration: underline;
+}
+
+.item-price-tag {
+	font-weight: bold;
+	font-size: 1.3rem;
+	color: var(--text-dark);
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+}
+
+/* Summary Card - Fixed the "Airlines" look by making it white */
+.summary-card {
+	background: var(--white);
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.summary-card h3 {
+	margin: 0 0 20px 0;
+	font-size: 1.1rem;
+	color: var(--primary-navy);
+}
+
+.summary-line {
+	display: flex;
+	justify-content: space-between;
+	margin: 15px 0;
+	color: var(--text-light);
+}
+
+.free-text { 
+	color: #2e7d32; /* Green for "Gratis" looks better than mustard here */
+	font-weight: bold; 
+}
+
+.summary-total {
+	display: flex;
+	justify-content: space-between;
+	margin: 25px 0;
+	font-size: 1.5rem;
+	font-weight: 800;
+	border-top: 2px solid var(--bg-gray);
+	padding-top: 20px;
+	color: var(--text-dark);
+}
+
+/* Matches your .add-btn logic */
+.checkout-btn {
+	width: 100%;
+	background-color: var(--tag-orange);
+	color: var(--white);
+	border: none;
+	padding: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: 0.3s;
+}
+
+.checkout-btn:hover {
+	background-color: #0d144d; /* Darker navy */
+	box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-link {
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	color: var(--text-light);
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+@media (max-width: 850px) {
+	.cart-grid { grid-template-columns: 1fr; }
+	.cart-item-card { flex-direction: column; align-items: flex-start; }
+	.item-price-tag { margin-left: 0; margin-top: 10px; }
+}
