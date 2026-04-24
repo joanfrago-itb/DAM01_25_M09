@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PR04 · TeeLab en crisis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <div class="noise"></div>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-badge">PR04</div>
+      <div>
+        <h1>TeeLab <span class="header-accent">en crisis</span></h1>
+        <p class="header-sub">
+          La API sigue en pie, pero los usuarios notan lentitud extrema, operaciones que no terminan
+          y bloqueos bajo carga simultánea. Tu misión: <strong>diagnosticar, medir y proponer soluciones justificadas.</strong>
+        </p>
+      </div>
+      <div class="header-meta">
+        <div class="meta-item"><span class="meta-label">Trabajo en equipo</span><span class="meta-val">2 personas</span></div>
+        <div class="meta-item"><span class="meta-label">Entrega</span><span class="meta-val">Informe + código</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECCIÓN 0: CONTEXTO -->
+    <section class="section-block">
+      <div class="section-tag">Enunciado</div>
+      <h2>Objetivo</h2>
+      <p>Esta página es vuestro <strong>panel de diagnóstico</strong> del backend de TeeLab. Desde aquí podéis lanzar peticiones a los distintos endpoints, medir su comportamiento, comparar resultados y extraer conclusiones sobre los problemas de rendimiento.</p>
+      <p>La práctica tiene dos fases: primero exploráis <em>sin mirar el código</em>, observando síntomas. Después analizáis el código para entender las causas y proponer mejoras.</p>
+
+      <div class="two-col" style="margin-top:20px;">
+        <div class="infobox infobox--blue">
+          <div class="infobox-title">🔍 Fase 1 — Exploración ciega</div>
+          <ul>
+            <li>Probad los endpoints desde esta interfaz o con Thunder Client.</li>
+            <li>Observad tiempos de respuesta, tamaño y errores.</li>
+            <li>Comparad entre endpoints: ¿cuál tarda más? ¿en qué condiciones?</li>
+            <li>Repetid las pruebas con varias peticiones en paralelo.</li>
+            <li>Anotad síntomas: lentitud, bloqueo, timeout, peso de respuesta.</li>
+          </ul>
+        </div>
+        <div class="infobox infobox--amber">
+          <div class="infobox-title">🔬 Fase 2 — Análisis del código</div>
+          <ul>
+            <li>Leed el código de cada servicio y proceso del backend.</li>
+            <li>Relacionad los síntomas observados con el código.</li>
+            <li>Identificad qué mecanismo usa cada endpoint: sync, worker, child, fork…</li>
+            <li>Proponed soluciones justificadas. No se trata de aplicar cluster a todo.</li>
+            <li>Explicad qué mejora tendría más impacto real en TeeLab.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 1: ENDPOINTS -->
+    <section class="section-block">
+      <div class="section-tag">1. Exploración inicial</div>
+      <h2>Endpoints disponibles</h2>
+
+      <div class="endpoint-grid">
+        <div class="endpoint-card">
+          <div class="endpoint-method get">GET</div>
+          <code>/health</code>
+          <p class="endpoint-hint">Comprueba que el servidor está vivo. Debería ser el más rápido. ¿Lo es siempre?</p>
+          <button onclick="runHealth()">Probar</button>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-method get">GET</div>
+          <code>/api/catalogo/camisetas</code>
+          <p class="endpoint-hint">Catálogo básico. Sirve como referencia de comportamiento normal.</p>
+          <button onclick="runCamisetas()">Probar</button>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-method get">GET</div>
+          <code>/api/catalogo/catalogo-completo</code>
+          <p class="endpoint-hint">Versión ampliada del catálogo. ¿Por qué tarda más? ¿Qué hace por dentro?</p>
+          <button onclick="runCatalogoCompleto()">Probar</button>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-method post">POST</div>
+          <code>/api/pagos/finalizar</code>
+          <p class="endpoint-hint">Cierre de compra. Puede bloquear todo el sistema si se llama en modo sync.</p>
+          <button onclick="runPago()">Probar</button>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-method get">GET</div>
+          <code>/api/tickets/:id/pdf</code>
+          <p class="endpoint-hint">Genera un ticket. Produce una respuesta muy grande. ¿Importa el modo de spawn?</p>
+          <button onclick="runTicketPdf()">Probar</button>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-method get">GET</div>
+          <code>/api/recomendaciones</code>
+          <p class="endpoint-hint">Cálculo costoso via fork(). Tiene timeout. ¿Qué pasa bajo carga?</p>
+          <button onclick="runRecomendaciones()">Probar</button>
+        </div>
+      </div>
+
+      <div class="infobox infobox--neutral" style="margin-top:18px;">
+        <div class="infobox-title">💡 Preguntas guía para la exploración</div>
+        <div class="question-grid">
+          <div>¿Todos los endpoints responden en tiempos similares?</div>
+          <div>¿Qué ocurre cuando lanzo 5 o 10 peticiones simultáneas?</div>
+          <div>¿El sistema entero se degrada o solo un endpoint?</div>
+          <div>¿El tamaño de la respuesta influye en el tiempo?</div>
+          <div>¿Hay algún endpoint que bloquee a los demás?</div>
+          <div>¿El endpoint <code>/health</code> siempre responde igual de rápido?</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: PANEL DE TEST -->
+    <section class="section-block">
+      <div class="section-tag">Pruebas</div>
+      <h2>Panel de testeo</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="baseUrl">URL base de la API</label>
+          <input id="baseUrl" type="text" value="http://localhost:3000" />
+        </div>
+        <div class="field">
+          <label for="parallelCount">Peticiones en paralelo</label>
+          <input id="parallelCount" type="number" min="1" value="5" />
+        </div>
+        <div class="field">
+          <label for="selectedEndpoint">Endpoint para prueba en paralelo</label>
+          <select id="selectedEndpoint">
+            <option value="/health">GET /health</option>
+            <option value="/api/catalogo/camisetas">GET /api/catalogo/camisetas</option>
+            <option value="/api/catalogo/catalogo-completo">GET /api/catalogo/catalogo-completo</option>
+            <option value="/api/pagos/finalizar">POST /api/pagos/finalizar</option>
+            <option value="/api/tickets/TEST-001/pdf">GET /api/tickets/TEST-001/pdf</option>
+            <option value="/api/recomendaciones">GET /api/recomendaciones</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn-primary" onclick="runParallelTest()">▶ Lanzar prueba en paralelo</button>
+        <button class="btn-ghost" onclick="clearResults()">✕ Limpiar resultados</button>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-box">
+          <div class="metric-label">Último endpoint</div>
+          <div class="metric-value mono" id="m-endpoint">—</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Tiempo</div>
+          <div class="metric-value" id="m-time">—</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Tamaño</div>
+          <div class="metric-value" id="m-size">—</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Estado HTTP</div>
+          <div class="metric-value" id="m-status">—</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Endpoint</th>
+              <th>Método</th>
+              <th>Estado</th>
+              <th>Tiempo (ms)</th>
+              <th>Tamaño (KB)</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody"></tbody>
+        </table>
+      </div>
+
+      <p class="footer-hint">Consejo: empieza comparando <code>/health</code> con <code>/api/catalogo/catalogo-completo</code> y <code>/api/pagos/finalizar</code> bajo carga. Los contrastes son llamativos.</p>
+    </section>
+
+    <!-- SECCIÓN 3: LOG -->
+    <section class="section-block">
+      <div class="section-tag">Registro</div>
+      <h2>Salida detallada</h2>
+      <pre id="logOutput">Aquí aparecerán los resultados detallados de cada prueba...</pre>
+    </section>
+
+    <!-- SECCIÓN 4: ANÁLISIS -->
+    <section class="section-block">
+      <div class="section-tag">2. Investigación</div>
+      <h2>Análisis del código</h2>
+      <p>Una vez tengáis datos, es el momento de abrir el código. El backend está en <code>src/</code>. Cada endpoint tiene su servicio, y cada servicio usa una estrategia diferente para gestionar la carga.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card problem--A">
+          <div class="problem-label">Problema A</div>
+          <div class="problem-endpoint"><code>/api/catalogo/catalogo-completo</code></div>
+          <p>El catálogo completo se genera mediante un proceso hijo con <code>spawn</code>. Observad cuánto tarda y si el resto de endpoints se ven afectados durante la generación.</p>
+        </div>
+        <div class="problem-card problem--B">
+          <div class="problem-label">Problema B</div>
+          <div class="problem-endpoint"><code>/api/pagos/finalizar</code></div>
+          <p>El endpoint de pagos puede operar en modo <code>sync</code> o <code>worker</code>. En modo sync, calcula una firma criptográfica que bloquea el event loop durante varios segundos. Comprobadlo.</p>
+        </div>
+        <div class="problem-card problem--C">
+          <div class="problem-label">Problema C</div>
+          <div class="problem-endpoint"><code>/api/tickets/:id/pdf</code></div>
+          <p>El ticket se genera vía <code>spawn</code> o <code>exec</code> según la variable de entorno <code>PDF_MODE</code>. La respuesta puede llegar a varios MB. ¿Influye el método en el comportamiento?</p>
+        </div>
+        <div class="problem-card problem--D">
+          <div class="problem-label">Problema D</div>
+          <div class="problem-endpoint"><code>/api/recomendaciones</code></div>
+          <p>Usa <code>fork()</code> con un timeout de 4 segundos. El cálculo es intensivo en CPU. ¿Qué pasa cuando llegan varias peticiones a la vez? ¿El fork protege el proceso principal?</p>
+        </div>
+        <div class="problem-card problem--E">
+          <div class="problem-label">Problema E</div>
+          <div class="problem-endpoint"><code>/health</code> y <code>/api/catalogo/camisetas</code></div>
+          <p>Estos endpoints deberían ser siempre rápidos. ¿Lo son cuando hay carga en los demás? Si se degradan, ¿a qué se debe? ¿Qué solución de arquitectura lo resolvería?</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox--green" style="margin-top:20px;">
+        <div class="infobox-title">📋 Preguntas para el informe final</div>
+        <ol class="report-questions">
+          <li>¿Qué endpoint os ha parecido más problemático y por qué?</li>
+          <li>¿Qué síntomas habéis observado: lentitud, bloqueo, timeout, gran peso de respuesta, errores?</li>
+          <li>¿Qué diferencia hay entre un problema de <em>saturación global</em> del event loop y uno <em>localizado</em> en un proceso hijo?</li>
+          <li>¿Cuándo usaríais <code>worker_threads</code> frente a <code>child_process</code>? ¿Y <code>fork()</code>? ¿Y <code>cluster</code>?</li>
+          <li>¿Qué solución aplicaríais a cada problema y por qué?</li>
+          <li>¿Qué mejora tendría más impacto real en el sistema de TeeLab con el mínimo cambio de código?</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: FASE 3 OPCIONAL -->
+    <section class="section-block section-optional">
+      <div class="optional-banner">
+        <span class="optional-icon">⚡</span>
+        <div>
+          <div class="optional-title">Fase 3 — Opcional · Para los más atrevidos</div>
+          <div class="optional-sub">Esta fase no puntúa igual que las anteriores, pero demuestra comprensión real del sistema. Solo si habéis terminado todo lo anterior.</div>
+        </div>
+      </div>
+
+      <div class="section-tag" style="margin-top:20px;">3. Implementación de Cluster</div>
+      <h2>¿Cluster lo arregla todo?</h2>
+      <p>Habéis diagnosticado los problemas, habéis propuesto soluciones. Ahora toca comprobar una de ellas en la práctica: aplicar <code>cluster</code> al servidor y volver a medir. La pregunta no es <em>"cómo se implementa"</em>, sino <em>"qué mejora y qué no mejora"</em>.</p>
+
+      <div class="two-col" style="margin-top:18px;">
+        <div class="infobox infobox--blue">
+          <div class="infobox-title">🔧 Lo que tenéis que hacer</div>
+          <ul>
+            <li>Cread un fichero <code>server.js</code> en la raíz del proyecto (no toquéis <code>app.js</code>).</li>
+            <li>Usad el módulo <code>cluster</code> de Node.js para lanzar un worker por núcleo de CPU (<code>os.availableParallelism()</code> o <code>os.cpus().length</code>).</li>
+            <li>El proceso primario (<em>primary</em>) solo gestiona el ciclo de vida de los workers. Los workers importan y escuchan con <code>app</code>.</li>
+            <li>Arrancad con <code>node server.js</code> en lugar de <code>node src/app.js</code>. El endpoint <code>/health</code> ahora devolverá el <code>pid</code> del worker que responde — observadlo.</li>
+            <li>Repetid las mismas pruebas de la Fase 1: individual y bajo carga paralela.</li>
+          </ul>
+        </div>
+        <div class="infobox infobox--amber">
+          <div class="infobox-title">💡 Pista de implementación</div>
+          <ul>
+            <li><code>cluster.isPrimary</code> distingue el proceso maestro de los workers.</li>
+            <li>El maestro hace <code>cluster.fork()</code> N veces y escucha <code>'exit'</code> para relanzar workers caídos.</li>
+            <li>Los workers simplemente hacen <code>app.listen(PORT)</code> — Node reparte las conexiones entrantes automáticamente.</li>
+            <li>Aproximadamente <strong>15–20 líneas de código</strong>. No es magia, es el patrón que visteis en los apuntes.</li>
+            <li>Añadid <code>console.log</code> con el PID en cada worker para ver el reparto en acción.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="problem-grid" style="margin-top:18px;">
+        <div class="problem-card problem--E">
+          <div class="problem-label">Observación 1</div>
+          <div class="problem-endpoint"><code>/health</code> bajo carga</div>
+          <p>Con cluster activo y varias peticiones en paralelo, ¿sigue degradándose <code>/health</code>? Comparad los tiempos con los de la Fase 1. ¿El PID varía entre respuestas?</p>
+        </div>
+        <div class="problem-card problem--B">
+          <div class="problem-label">Observación 2</div>
+          <div class="problem-endpoint"><code>POST /api/pagos/finalizar</code> modo sync</div>
+          <p>Lanzad 4 o más pagos síncronos en paralelo. ¿El sistema se bloquea igual? ¿O el bloqueo queda aislado en un worker mientras los demás siguen respondiendo?</p>
+        </div>
+        <div class="problem-card problem--D">
+          <div class="problem-label">Observación 3</div>
+          <div class="problem-endpoint"><code>/api/recomendaciones</code></div>
+          <p>¿Mejora el timeout bajo carga? ¿O el problema sigue siendo el mismo independientemente de cuántos workers haya? Razonad por qué.</p>
+        </div>
+        <div class="problem-card problem--A">
+          <div class="problem-label">Observación 4</div>
+          <div class="problem-endpoint">Reparto de carga</div>
+          <p>Lanzad 10 peticiones a <code>/health</code> seguidas y observad los PIDs en la respuesta. ¿Se reparten entre workers? ¿El reparto es uniforme o hay alguno que concentra más?</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox--green" style="margin-top:20px;">
+        <div class="infobox-title">📋 Preguntas para el informe — Fase 3</div>
+        <ol class="report-questions">
+          <li>¿Qué problemas de TeeLab resuelve cluster y cuáles <strong>no</strong> resuelve? Argumentad con los datos de vuestras mediciones.</li>
+          <li>¿Por qué el modo <code>sync</code> de pagos sigue siendo un problema incluso con cluster? ¿Qué número de peticiones simultáneas lo vuelve a saturar?</li>
+          <li>¿Qué ventaja tiene cluster sobre simplemente usar <code>worker_threads</code> para todo? ¿Son intercambiables o complementarios?</li>
+          <li>¿Qué pasaría si un worker se cae mientras procesa un pago? ¿Cómo lo gestionaría un cluster bien implementado?</li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>PR04 · TeeLab en crisis</span>
+    <span>DAW · Servicios y Procesos</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PR04 · Informe — [Nombre del equipo]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="informe-styles.css" />
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-badge">PR04</div>
+      <div class="header-main">
+        <h1>TeeLab <span class="header-accent">en crisis</span><br>— Informe de diagnóstico</h1>
+        <p class="header-sub">Rellenad cada sección con vuestros hallazgos, mediciones y propuestas.</p>
+      </div>
+      <div class="header-team">
+        <div class="team-label">Equipo</div>
+        <div class="team-member">
+          <input class="team-name-input" type="text" placeholder="Nombre y apellidos…" />
+          <span class="team-role">Integrante 1</span>
+        </div>
+        <div class="team-member">
+          <input class="team-name-input" type="text" placeholder="Nombre y apellidos…" />
+          <span class="team-role">Integrante 2</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── 1. MEDICIONES ──────────────────────────── -->
+    <section class="section-block">
+      <div class="section-tag">1. Mediciones</div>
+      <h2>Resultados de las pruebas</h2>
+      <p>Registrad aquí los tiempos y observaciones de cada endpoint. Probadlos individualmente y también bajo carga paralela. Los valores medios son más útiles que una sola medición.</p>
+
+      <div class="measurement-grid">
+
+        <div class="measure-card color-e">
+          <div class="measure-endpoint">GET /health</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 8 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 42 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tamaño respuesta (KB)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 0.08 KB" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200" />
+          </div>
+        </div>
+
+        <div class="measure-card color-a">
+          <div class="measure-endpoint">GET /api/catalogo/camisetas</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 12 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 45 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tamaño respuesta (KB)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 4.2 KB" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200" />
+          </div>
+        </div>
+
+        <div class="measure-card color-a">
+          <div class="measure-endpoint">GET /api/catalogo/catalogo-completo</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 3200 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 5800 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tamaño respuesta (KB)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 48 KB" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200" />
+          </div>
+        </div>
+
+        <div class="measure-card color-b">
+          <div class="measure-endpoint">POST /api/pagos/finalizar (sync)</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 2800 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 14000 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Bloquea /health?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / Parcial" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200 / timeout" />
+          </div>
+        </div>
+
+        <div class="measure-card color-c">
+          <div class="measure-endpoint">GET /api/tickets/:id/pdf</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 150 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tamaño respuesta (KB)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 310 KB" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">PDF_MODE usado</span>
+            <input class="measure-val-input" type="text" placeholder="spawn / exec" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200" />
+          </div>
+        </div>
+
+        <div class="measure-card color-d">
+          <div class="measure-endpoint">GET /api/recomendaciones</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo individual (ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 3700 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: timeout" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Da timeout bajo carga?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / A veces" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">Estado HTTP</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 200 / 500" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 2. ANÁLISIS POR PROBLEMA ───────────────── -->
+    <section class="section-block">
+      <div class="section-tag">2. Análisis del código</div>
+      <h2>Diagnóstico por problema</h2>
+      <p>Para cada endpoint, explicad qué mecanismo usa el código, qué problema genera y qué solución proponéis.</p>
+
+      <div class="analysis-grid">
+
+        <div class="analysis-card color-a">
+          <div class="analysis-problem-id">Problema A</div>
+          <div class="analysis-endpoint"><code>/api/catalogo/catalogo-completo</code></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="technique-badge">spawn()</span>
+            <span class="technique-badge">child_process</span>
+          </div>
+          <div class="analysis-field">
+            <label>¿Qué hace el código? (catalogo.service.js)</label>
+            <textarea placeholder="Describid qué proceso lanza y por qué tarda. ¿Qué hace catalogo-generator.js internamente?"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Síntoma observado</label>
+            <textarea placeholder="¿Qué visteis en las mediciones? ¿Afecta al resto del sistema?" style="min-height:55px;"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Propuesta de mejora</label>
+            <textarea placeholder="¿Qué solución aplicaríais? ¿Caché, cluster, ajuste del proceso…? Justificad."></textarea>
+          </div>
+        </div>
+
+        <div class="analysis-card color-b">
+          <div class="analysis-problem-id">Problema B</div>
+          <div class="analysis-endpoint"><code>/api/pagos/finalizar</code></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="technique-badge">worker_threads</span>
+            <span class="technique-badge">sync CPU block</span>
+          </div>
+          <div class="analysis-field">
+            <label>¿Qué hace el código? (pagos.service.js)</label>
+            <textarea placeholder="¿Qué diferencia hay entre el modo sync y el modo worker? ¿Qué bloquea exactamente en modo sync?"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Síntoma observado</label>
+            <textarea placeholder="¿El /health se ralentizó mientras procesabais un pago en sync? ¿Y en modo worker?" style="min-height:55px;"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Propuesta de mejora</label>
+            <textarea placeholder="¿Bastaba con el modo worker? ¿Añadíais algo más? ¿Cola de tareas, limit de concurrencia…?"></textarea>
+          </div>
+        </div>
+
+        <div class="analysis-card color-c">
+          <div class="analysis-problem-id">Problema C</div>
+          <div class="analysis-endpoint"><code>/api/tickets/:id/pdf</code></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="technique-badge">spawn()</span>
+            <span class="technique-badge">exec()</span>
+            <span class="technique-badge">stdout grande</span>
+          </div>
+          <div class="analysis-field">
+            <label>¿Qué hace el código? (tickets.service.js)</label>
+            <textarea placeholder="¿Qué diferencia hay entre exec y spawn para manejar la respuesta? ¿Importa el tamaño del ticket?"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Síntoma observado</label>
+            <textarea placeholder="¿Qué tamaño de respuesta observasteis? ¿Hay diferencia de comportamiento con exec vs spawn?" style="min-height:55px;"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Propuesta de mejora</label>
+            <textarea placeholder="¿Qué método recomendáis para ficheros grandes? ¿Por qué exec puede ser peligroso aquí?"></textarea>
+          </div>
+        </div>
+
+        <div class="analysis-card color-d">
+          <div class="analysis-problem-id">Problema D</div>
+          <div class="analysis-endpoint"><code>/api/recomendaciones</code></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="technique-badge">fork()</span>
+            <span class="technique-badge">IPC</span>
+            <span class="technique-badge">timeout 4s</span>
+          </div>
+          <div class="analysis-field">
+            <label>¿Qué hace el código? (recomendaciones.service.js)</label>
+            <textarea placeholder="¿Cómo funciona el fork y el canal IPC aquí? ¿Qué hace recomendador-child.js? ¿Qué ocurre con el timeout?"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Síntoma observado</label>
+            <textarea placeholder="¿Se producen timeouts? ¿Bajo qué condiciones? ¿El proceso padre sigue respondiendo durante el fork?" style="min-height:55px;"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Propuesta de mejora</label>
+            <textarea placeholder="¿Worker_threads sería mejor aquí? ¿Caché de resultados? ¿Por qué?"></textarea>
+          </div>
+        </div>
+
+        <div class="analysis-card color-e">
+          <div class="analysis-problem-id">Problema E</div>
+          <div class="analysis-endpoint"><code>/health</code> &amp; <code>/api/catalogo/camisetas</code></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="technique-badge">event loop</span>
+            <span class="technique-badge">single thread</span>
+          </div>
+          <div class="analysis-field">
+            <label>¿Por qué se degradan bajo carga?</label>
+            <textarea placeholder="¿Qué tiene que ver el event loop de Node.js con esto? ¿Cuándo se ven afectados y cuándo no?"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Síntoma observado</label>
+            <textarea placeholder="Comparad los tiempos de /health en reposo vs. mientras hay una petición sync de pagos en curso." style="min-height:55px;"></textarea>
+          </div>
+          <div class="analysis-field">
+            <label>Solución arquitectónica</label>
+            <textarea placeholder="¿Qué cambio de arquitectura resolvería la degradación global? ¿Cluster? ¿Separación de responsabilidades?"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 3. COMPARATIVA MECANISMOS ──────────────── -->
+    <section class="section-block">
+      <div class="section-tag">3. Comparativa</div>
+      <h2>Tabla de mecanismos de Node.js</h2>
+      <p>Completad la tabla relacionando cada mecanismo con lo que habéis observado en TeeLab.</p>
+
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Mecanismo</th>
+              <th>¿Dónde se usa en TeeLab?</th>
+              <th>¿Bloquea el event loop?</th>
+              <th>¿Cuándo usarlo? (vuestro criterio)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>sync (CPU)</code></td>
+              <td><input type="text" placeholder="Endpoint…" /></td>
+              <td><input type="text" placeholder="Sí / No / Parcial" /></td>
+              <td><input type="text" placeholder="Nunca / En producción / …" /></td>
+            </tr>
+            <tr>
+              <td><code>worker_threads</code></td>
+              <td><input type="text" placeholder="Endpoint…" /></td>
+              <td><input type="text" placeholder="Sí / No / Parcial" /></td>
+              <td><input type="text" placeholder="Cuando… + ejemplo" /></td>
+            </tr>
+            <tr>
+              <td><code>spawn()</code></td>
+              <td><input type="text" placeholder="Endpoints…" /></td>
+              <td><input type="text" placeholder="Sí / No / Parcial" /></td>
+              <td><input type="text" placeholder="Cuando… + ejemplo" /></td>
+            </tr>
+            <tr>
+              <td><code>exec()</code></td>
+              <td><input type="text" placeholder="Endpoint / variable" /></td>
+              <td><input type="text" placeholder="Sí / No / Parcial" /></td>
+              <td><input type="text" placeholder="Diferencia con spawn…" /></td>
+            </tr>
+            <tr>
+              <td><code>fork()</code></td>
+              <td><input type="text" placeholder="Endpoint…" /></td>
+              <td><input type="text" placeholder="Sí / No / Parcial" /></td>
+              <td><input type="text" placeholder="Ventaja vs spawn…" /></td>
+            </tr>
+            <tr>
+              <td><code>cluster</code></td>
+              <td><input type="text" placeholder="No implementado. ¿Dónde ayudaría?" /></td>
+              <td><input type="text" placeholder="—" /></td>
+              <td><input type="text" placeholder="¿Cuándo tiene sentido en este proyecto?" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 4. PREGUNTAS DE REFLEXIÓN ─────────────── -->
+    <section class="section-block">
+      <div class="section-tag">4. Reflexión</div>
+      <h2>Preguntas del informe</h2>
+
+      <div class="questions-list">
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">1</span>
+            ¿Qué endpoint os ha parecido más problemático y por qué? Razonad con datos.
+          </div>
+          <textarea placeholder="Usad los datos de vuestra tabla de mediciones para argumentar la respuesta..."></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">2</span>
+            ¿Qué diferencia hay entre un problema de saturación global del event loop y uno localizado en un proceso hijo?
+          </div>
+          <textarea placeholder="Pensad en el Problema B (pagos sync) vs. el Problema D (recomendaciones con fork). ¿En cuál de los dos el resto de endpoints sigue respondiendo con normalidad?"></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">3</span>
+            ¿Por qué <code>exec()</code> puede ser problemático para generar el ticket PDF, aunque funcione?
+          </div>
+          <textarea placeholder="Relacionadlo con el buffer de exec y el tamaño de la respuesta..."></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">4</span>
+            ¿En qué caso usaríais <code>worker_threads</code> en lugar de <code>fork()</code>? ¿Y <code>cluster</code> en lugar de ninguno de los dos?
+          </div>
+          <textarea placeholder="Describid un escenario concreto de TeeLab donde cada uno sería la mejor opción..."></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">5</span>
+            Si solo pudierais aplicar una mejora a TeeLab para reducir el impacto más grave con el mínimo cambio de código, ¿cuál sería y por qué?
+          </div>
+          <textarea placeholder="Sed precisos: ¿qué fichero cambiaríais, qué líneas y qué efecto tendría?"></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num">6</span>
+            ¿Tiene sentido aplicar <code>cluster</code> en este proyecto tal como está? ¿Qué problema resolvería y cuál NO resolvería?
+          </div>
+          <textarea placeholder="Pensad en el problema de la memoria compartida que visteis en clase y en qué problemas de TeeLab son de saturación de concurrencia vs. bloqueo de CPU..."></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 5. CONCLUSIÓN ──────────────────────────── -->
+    <section class="section-block">
+      <div class="section-tag">5. Conclusión</div>
+      <h2>Valoración final</h2>
+      <p>Escribid un breve párrafo de conclusión: qué ha sido lo más sorprendente, qué lleváis aprendido y qué haríais diferente en un proyecto real.</p>
+      <div class="conclusion-area">
+        <textarea placeholder="Vuestra conclusión aquí. Podéis incluir reflexiones sobre el proceso de diagnóstico, lo que os ha sorprendido más de cómo Node.js gestiona la concurrencia, y qué patrón de diseño aplicaríais en un proyecto propio..."></textarea>
+      </div>
+    </section>
+
+    <!-- ── FASE 3 OPCIONAL: CLUSTER ──────────────── -->
+    <section class="section-block section-optional">
+      <div class="optional-banner">
+        <span class="optional-icon">⚡</span>
+        <div>
+          <div class="optional-title">Fase 3 — Opcional · Solo si habéis terminado todo lo anterior</div>
+          <div class="optional-sub">Implementad cluster, repetid las mediciones y responded las preguntas. El objetivo no es que funcione, sino que observéis qué mejora y qué no.</div>
+        </div>
+      </div>
+
+      <div class="section-tag" style="margin-top:20px;">Fase 3 · Cluster</div>
+      <h2>Mediciones con Cluster activo</h2>
+      <p>Rellenad esta tabla con los mismos endpoints, pero ahora con el servidor arrancado mediante <code>node server.js</code> (con cluster). Comparad con los datos de la Sección 1.</p>
+
+      <div class="measurement-grid" style="margin-top:16px;">
+
+        <div class="measure-card color-e">
+          <div class="measure-endpoint">GET /health (con cluster)</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 8 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Varía el PID entre respuestas?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Mejora respecto a sin cluster?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / Igual" />
+          </div>
+        </div>
+
+        <div class="measure-card color-b">
+          <div class="measure-endpoint">POST /api/pagos/finalizar sync (con cluster)</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 3000 ms" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Sigue bloqueando /health?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / Parcial" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿A partir de cuántas peticiones simultáneas se satura?</span>
+            <input class="measure-val-input" type="text" placeholder="ej: a partir de N workers" />
+          </div>
+        </div>
+
+        <div class="measure-card color-d">
+          <div class="measure-endpoint">GET /api/recomendaciones (con cluster)</div>
+          <div class="measure-row">
+            <span class="measure-key">Tiempo bajo carga (avg ms)</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 3700 ms / timeout" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Mejora el timeout bajo carga?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / Igual" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Por qué? (razonamiento breve)</span>
+            <input class="measure-val-input" type="text" placeholder="El fork ya va en proceso separado..." />
+          </div>
+        </div>
+
+        <div class="measure-card color-a">
+          <div class="measure-endpoint">Reparto de carga (10 peticiones /health)</div>
+          <div class="measure-row">
+            <span class="measure-key">Número de workers activos</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 4 (= nº de núcleos)" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿PIDs distintos observados?</span>
+            <input class="measure-val-input" type="text" placeholder="ej: 3 PIDs distintos de 4 posibles" />
+          </div>
+          <div class="measure-row">
+            <span class="measure-key">¿Reparto uniforme?</span>
+            <input class="measure-val-input" type="text" placeholder="Sí / No / Aproximado" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="questions-list" style="margin-top:24px;">
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num" style="background:#d97706;">F3·1</span>
+            ¿Qué problemas de TeeLab resuelve cluster y cuáles <strong>no</strong> resuelve? Argumentad con vuestros datos.
+          </div>
+          <textarea placeholder="Comparad directamente los tiempos de la Sección 1 con los de esta sección. ¿Qué endpoints mejoran claramente? ¿Cuáles se comportan igual?"></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num" style="background:#d97706;">F3·2</span>
+            ¿Por qué el modo <code>sync</code> de pagos sigue siendo un problema incluso con cluster? ¿Cuántas peticiones simultáneas lo vuelven a saturar?
+          </div>
+          <textarea placeholder="Pensad en la relación entre número de workers y número de peticiones síncronas concurrentes. ¿Qué pasa cuando hay más peticiones que workers?"></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num" style="background:#d97706;">F3·3</span>
+            ¿Qué ventaja tiene cluster sobre usar <code>worker_threads</code> para todo? ¿Son intercambiables o complementarios?
+          </div>
+          <textarea placeholder="Pensad en qué escala cada uno: cluster replica el servidor entero; worker_threads delega una tarea puntual. ¿Tienen casos de uso distintos o solapados?"></textarea>
+        </div>
+
+        <div class="question-item">
+          <div class="question-text">
+            <span class="question-num" style="background:#d97706;">F3·4</span>
+            ¿Qué pasaría si un worker se cae mientras procesa un pago? ¿Cómo lo gestionaría un cluster bien implementado?
+          </div>
+          <textarea placeholder="Describid qué debería hacer el proceso primary al recibir el evento 'exit' de un worker. ¿Lo habéis implementado en vuestro server.js?"></textarea>
+        </div>
+
+      </div>
+
+      <div class="cluster-code-hint">
+        <div class="cluster-code-hint-title">📎 Vuestro <code>server.js</code></div>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;">Pegad aquí el código de vuestro server.js para que pueda revisarlo.</p>
+        <textarea class="code-textarea" placeholder="import cluster from 'cluster';&#10;import os from 'os';&#10;import app from './src/app.js';&#10;&#10;const PORT = 3000;&#10;const NUM_WORKERS = os.availableParallelism();&#10;&#10;if (cluster.isPrimary) {&#10;  // ...&#10;}"></textarea>
+      </div>
+
+    </section>
+
+    <div class="actions-bar">
+      <button class="btn-print" onclick="window.print()">🖨 Imprimir / Exportar PDF</button>
+      <button class="btn-save" onclick="guardarLocalStorage()">💾 Guardar borrador</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <span>PR04 · TeeLab en crisis — Plantilla de informe</span>
+    <span>DAW · Servicios y Procesos</span>
+  </footer>
+
+  <script>
+    // Guardar / recuperar del localStorage para que no pierdan el trabajo
+    const STORAGE_KEY = 'pr04_teelab_informe';
+
+    function guardarLocalStorage() {
+      const data = {};
+      document.querySelectorAll('input[type="text"], textarea').forEach((el, i) => {
+        data[`field_${i}`] = el.value;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const btn = document.querySelector('.btn-save');
+      btn.textContent = '✓ Guardado';
+      setTimeout(() => { btn.textContent = '💾 Guardar borrador'; }, 1800);
+    }
+
+    function cargarLocalStorage() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      document.querySelectorAll('input[type="text"], textarea').forEach((el, i) => {
+        if (data[`field_${i}`] !== undefined) el.value = data[`field_${i}`];
+      });
+    }
+
+    // Cargar al iniciar
+    window.addEventListener('DOMContentLoaded', cargarLocalStorage);
+
+    // Autoguardado cada 30 s
+    setInterval(guardarLocalStorage, 30000);
+  </script>
+
+</body>
+</html>
